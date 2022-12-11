@@ -19,7 +19,24 @@ namespace Login_Page
 
         protected void btn_login_Click(object sender, EventArgs e)
         {
-         
+            lblmsg.Text = "";
+            SqlDataAdapter SQLAdapter = new SqlDataAdapter("Select * from Accounts where username='" + txt_user.Text + "' and password='" + txt_pass.Text + "'", SQLConn);
+            DataTable DT = new DataTable();
+            SQLAdapter.Fill(DT);
+
+            if (DT.Rows.Count > 0)
+            {
+                lblmsg.Text = "Welcome to the System";
+                lblmsg.ForeColor = System.Drawing.Color.Green;
+                lblmsg.Font.Bold = true;
+            }
+
+            else
+            {
+                lblmsg.Text = "Invalid username or password";
+                lblmsg.ForeColor = System.Drawing.Color.Red;
+                lblmsg.Font.Bold = true;
+            }
         }
 
         protected void btn_register_Click(object sender, EventArgs e)
